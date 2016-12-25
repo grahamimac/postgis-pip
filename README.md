@@ -37,12 +37,3 @@ Or, type `psql -U postgres` to access the PostGres command line and run the quer
 ``` SQL
 SELECT * FROM bg WHERE geoid = '010010010011';
 ```
-
-You can also `exit` and create another PostGIS-enabled container, using something like the following.
-
-``` bash
-docker run -itdP --link a-postgis:a-postgis graham3333/mapnik-python
-```
-
-With this container, you can connect to the other PostGIS container and run queries like the following.
-
