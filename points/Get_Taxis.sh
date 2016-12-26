@@ -13,6 +13,7 @@ for y in 2009 2010 2011 2012 2013 2014 2015 2016; do
 		psql -U postgres -c "\COPY taxis_${y}_${i} FROM data_${y}_${i}_out.csv DELIMITERS ',' CSV"
 		psql -U postgres -c "INSERT INTO taxis (geom) (SELECT ST_GeomFromText('POINT(' || lon_lat || ')', 4269) FROM taxis_${y}_${i})"
 		psql -U postgres -c "DROP TABLE taxis_${y}_${i}"
+		rm data_${y}_${i}_out.csv
 	done
 done
 psql -U postgres -c "CREATE INDEX taxi_points ON taxis USING GIST(geom)"
