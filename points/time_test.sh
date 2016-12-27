@@ -4,12 +4,12 @@
 
 function pointtest {
 	START=$(date +%s)
-	psql -U postgis -c "CREATE TABLE test as SELECT tract.geoid as tract_id, taxis.id as taxis_id FROM tract , taxis WHERE taxis.id <=$1 and ST_Dwithin(tract.geom , taxis.geom,0);"
+	psql -U postgres -c "CREATE TABLE test as SELECT tract.geoid as tract_id, taxis.id as taxis_id FROM tract , taxis WHERE taxis.id <=$1 and ST_Dwithin(tract.geom , taxis.geom,0);"
 	END=$(date +%s)
 	DIFF=$(echo "$END - $START" | bc)
 	echo "   Test took $DIFF seconds"
 	echo "   Removing test table"
-	psql -U postgis -c "DROP TABLE test"
+	psql -U postgres -c "DROP TABLE test"
 }
 
 echo "Million point test"
