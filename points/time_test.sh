@@ -6,7 +6,7 @@ function pointtest {
 	START=$(date +%s)
 	psql -U postgres -c "CREATE TABLE test as SELECT tract.geoid as tract_id, taxis.id as taxis_id FROM tract , taxis WHERE taxis.id <=$1 and ST_Dwithin(tract.geom , taxis.geom,0);"
 	END=$(date +%s)
-	DIFF=$(echo "$END - $START" | bc)
+	DIFF="$(($END-$START))"
 	echo "   Test took $DIFF seconds"
 	echo "   Removing test table"
 	psql -U postgres -c "DROP TABLE test"
