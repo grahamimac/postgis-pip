@@ -12,14 +12,20 @@ function pointtest {
 	psql -U postgres -c "DROP TABLE test"
 }
 
-echo "Million point test"
+echo "125,000 point test"
+pointtest 125000
+
+echo "250,000 point test"
+pointtest 250000
+
+echo "500,000 point test"
+pointtest 500000
+
+echo "1 Million point test"
 pointtest 1000000
 
-echo "10 Million point test"
-pointtest 10000000
+echo "2 Million point test"
+pointtest 2000000
 
-echo "100 Million point test"
-pointtest 100000000
-
-echo "1 Billion point test"
-pointtest 1000000000
+echo "4 Million point test"
+pointtest 4000000
