@@ -37,3 +37,23 @@ Or, type `psql -U postgres` to access the PostGres command line and run the quer
 ``` SQL
 SELECT * FROM bg WHERE geoid = '010010010011';
 ```
+
+### Speed Tests
+
+In the Points folder, I have code to download the NYC Yellow Taxi data and insert the data into a PostGIS table, spatially indexed, in order to test the speed of point in polygon analysis. I use an Amazon Linux AMI m4.large with 2 cores and 8 GB of memory, though CPU speed is the limiting factor, for the following tests.
+
+#### Results
+
+Speed test results, using some example Census geographies. Time is reported in seconds.
+
+Points      | Census Block Group | Census Tract | County
+----------- | ------------------ | ------------ | ------
+Geographies | 217,739            | 73,056       | 3,233 
+125,000 pts | 6 seconds          | 7            | 23     
+250,000     | 9                  | 13           | 45     
+500,000     | 18                 | 25           | 92
+1 Million   | 36                 | 52           | 181
+2 Million   | 72                 | 103          | 363
+4 Million   | 142                | 207          | 728
+
+PostGIS is more efficient when there are more geographies, possibly because of the indexing method allowing the algorithm to process fewer points intensively per geometry, after the relatively quick first pass with the index. Given there are approximately 50 times more Census Blocks than Block Groups, it is possible that, in the range of millions of points, Census Blocks might be 3 or more times faster than Census Block Groups.
