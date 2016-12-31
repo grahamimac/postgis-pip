@@ -7,7 +7,7 @@ for geog in tabblock10 bg tract puma10; do
 		j=`echo ${geog} | awk '{print toupper($0)}'` 
 		k= 
 		if [[ "$geog" == puma10 ]]; then j=PUMA k=10; fi 
-		if [[ "$geog" == tabblock ]]; then j=TABBLOCK k=10; fi
+		if [[ "$geog" == tabblock10 ]]; then j=TABBLOCK k=10; fi
 		wget http://www2.census.gov/geo/tiger/TIGER2016/${j}/tl_2016_${i}_${geog}.zip -O ${i}.zip 
 		unzip ${i}.zip 
 		rm ${i}.zip 
